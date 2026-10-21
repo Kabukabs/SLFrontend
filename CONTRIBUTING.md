@@ -92,6 +92,21 @@ Do not commit that change unless your PR is about the Storybook setup.
 When you add or change a reusable component in `src/components/ui/`, add or update its story so
 reviewers can check every state (default, hover/focus, disabled, error, loading).
 
+## Dependency updates
+
+Dependabot checks npm dependencies every week (`.github/dependabot.yml`). It groups minor and
+patch updates into one PR, and opens each major update as its own PR. Dependabot commits use the
+`chore(deps)` prefix.
+
+When you review a dependency PR:
+
+- Check that `package-lock.json` changed along with `package.json`. The lockfile is committed.
+- Wait for CI to pass: lint, unit tests, production build, and E2E.
+- For `@stellar/*` and `@stripe/*` bumps, read the release notes and walk through the wallet
+  login and checkout flows on testnet. These packages handle signing and payments.
+- For major bumps, read the migration guide. Next.js, React, and Zod upgrades usually need code
+  changes, so expect a larger diff and reply to review comments on the same branch.
+
 ## Pull requests
 
 Open the PR against `main` and fill in:
