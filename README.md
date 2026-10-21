@@ -68,6 +68,8 @@ npm run dev                   # → http://localhost:3001
 
 Install [Freighter](https://freighter.app) and switch it to Testnet.
 
+For the contract ID, network, and wallet settings, see [docs/stellar-integration.md](docs/stellar-integration.md).
+
 ---
 
 ## Testing
