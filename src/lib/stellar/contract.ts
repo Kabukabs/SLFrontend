@@ -57,6 +57,18 @@ async function waitForTx(hash: string): Promise<string> {
 /**
  * Student enrolls in a course and pays the fee.
  * Payment is split automatically: platform fee to treasury, remainder to instructor.
+ *
+ * Resolves with the transaction hash once the transaction is confirmed on-chain.
+ *
+ * Rejects with an `Error` whose message says which step failed:
+ * - `Simulation: <reason>` when the contract rejects the call. Signing has not been requested yet.
+ * - `Submission failed` when the RPC server rejects the signed transaction.
+ * - `Transaction failed: <hash>` when the transaction is included but fails on-chain.
+ * - `Transaction not confirmed` when it is still pending after about 40 seconds. It may still
+ *   succeed, so look up the hash before retrying, or the learner could be charged twice.
+ *
+ * Errors from the wallet (for example the user declining to sign) and from RPC requests
+ * propagate unchanged. Throws if `callerAddress` is not a valid Stellar address.
  */
 export async function enrollInCourse(params: {
   callerAddress: string;
@@ -70,6 +82,9 @@ export async function enrollInCourse(params: {
 
 /**
  * Instructor registers a course on-chain (called before submitting for admin review).
+ *
+ * `price` is in the token's smallest unit. `platformFeePct` defaults to 0.
+ * Resolves with the transaction hash and rejects in the same cases as `enrollInCourse`.
  */
 export async function registerCourseOnChain(params: {
   callerAddress: string;

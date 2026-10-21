@@ -61,7 +61,13 @@ const FALLBACK_MESSAGE =
 
 type PartialStripeError = Pick<StripeError, 'code' | 'decline_code' | 'type' | 'message'>;
 
-/** Turn a Stripe error (or anything thrown by a payment handler) into learner-facing copy. */
+/**
+ * Turn a Stripe error (or anything thrown by a payment handler) into learner-facing copy.
+ *
+ * Never throws. Lookup order is `decline_code`, then `code`, then `type`. Validation
+ * messages are passed through as written. Anything else, including non-object input,
+ * gets the generic fallback.
+ */
 export const friendlyStripeError = (error: unknown): string => {
   if (!error || typeof error !== 'object') return FALLBACK_MESSAGE;
 

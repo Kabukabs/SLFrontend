@@ -68,6 +68,8 @@ npm run dev                   # → http://localhost:3001
 
 Install [Freighter](https://freighter.app) and switch it to Testnet.
 
+For the contract ID, network, and wallet settings, see [docs/stellar-integration.md](docs/stellar-integration.md).
+
 ---
 
 ## Testing
@@ -145,6 +147,14 @@ Storybook, and the PR checklist.
 - `video-player/` (includes `bugfix.md` and `tasks.md`)
 
 These are reference documents for contributors. The build, tests, and tooling do not read them. Task checklists in `tasks.md` may not match the current code, so verify against `src/` before relying on them. Update a spec when its feature design changes.
+
+---
+
+## Archived Code (`_app_backup/`)
+
+`_app_backup/` holds one archived page, `instructor/dashboard/page.tsx`, with placeholder revenue data. The app does not use it. It sits outside `src/app/`, so Next.js does not route it, and nothing imports it. You can safely ignore it.
+
+`tsconfig.json` still includes every `.tsx` file, so TypeScript checks this page with the rest of the project. Keep it type-correct until someone removes the directory.
 
 ---
 
