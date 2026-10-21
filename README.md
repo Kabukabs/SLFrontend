@@ -150,6 +150,14 @@ These are reference documents for contributors. The build, tests, and tooling do
 
 ---
 
+## Archived Code (`_app_backup/`)
+
+`_app_backup/` holds one archived page, `instructor/dashboard/page.tsx`, with placeholder revenue data. The app does not use it. It sits outside `src/app/`, so Next.js does not route it, and nothing imports it. You can safely ignore it.
+
+`tsconfig.json` still includes every `.tsx` file, so TypeScript checks this page with the rest of the project. Keep it type-correct until someone removes the directory.
+
+---
+
 ## License
 
 MIT
