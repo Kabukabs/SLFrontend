@@ -13,6 +13,10 @@ import type { PaymentMethod } from '@stripe/stripe-js';
  * PaymentIntent endpoint lands.
  */
 
+/**
+ * Thrown by `simulatePaymentConfirmation` for a test card. Its `code` and `decline_code`
+ * mirror the fields on a Stripe error, so `friendlyStripeError` handles both the same way.
+ */
 export class PaymentDeclinedError extends Error {
   readonly code: string;
   readonly decline_code?: string;
@@ -39,6 +43,11 @@ const TEST_CARD_OUTCOMES: Record<string, { code: string; declineCode?: string }>
 
 const PROCESSING_DELAY_MS = 1200;
 
+/**
+ * Stand-in for PaymentIntent confirmation. Waits about 1.2 seconds, then resolves for any card
+ * except the Stripe test cards in `TEST_CARD_OUTCOMES`, which reject with `PaymentDeclinedError`.
+ * It never contacts Stripe.
+ */
 export const simulatePaymentConfirmation = async (
   paymentMethod: PaymentMethod,
 ): Promise<void> => {
